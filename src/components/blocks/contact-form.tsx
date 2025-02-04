@@ -17,9 +17,9 @@ export function ContactForm() {
     const name = formData.get("name") as string
     let phone = formData.get("phone") as string
 
-    // Format phone number to ensure it starts with +34
-    if (!phone.startsWith("+34")) {
-      phone = phone.startsWith("34") ? "+" + phone : "+34" + phone.replace(/^0+/, "")
+    // Ensure phone is in E.164 format (starts with +)
+    if (!phone.startsWith("+")) {
+      phone = "+" + phone.replace(/^0+/, "")
     }
 
     try {
@@ -70,12 +70,12 @@ export function ContactForm() {
             id="phone" 
             name="phone"
             type="tel" 
-            placeholder="+34662039902"
-            pattern="\\+?34[0-9]{9}"
-            title="Please enter a valid Spanish phone number starting with +34"
+            placeholder="+1234567890"
+            pattern="\\+?[1-9]\\d{1,14}"
+            title="Please enter a valid phone number in international format (E.164)"
             required 
           />
-          <p className="text-sm text-muted-foreground">Format: +34XXXXXXXXX</p>
+          <p className="text-sm text-muted-foreground">Format: +[country code][number] (e.g., +34662039902)</p>
         </div>
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "Sending..." : "Request Information"}
