@@ -4,9 +4,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { CheckCircle2 } from "lucide-react"
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,7 +20,6 @@ export function ContactForm() {
     const name = formData.get("name") as string
     let phone = formData.get("phone") as string
 
-    // Ensure phone is in E.164 format (starts with +)
     if (!phone.startsWith("+")) {
       phone = "+" + phone.replace(/^0+/, "")
     }
@@ -38,22 +40,33 @@ export function ContactForm() {
         throw new Error("Failed to submit form")
       }
 
+      setIsSubmitted(true)
       toast({
         title: "Success!",
-        description: "We'll contact you shortly.",
+        description: "An agent will call you soon",
       })
 
-      // Reset form
-      e.currentTarget.reset()
     } catch (error) {
       toast({
         title: "Error",
         description: "There was a problem submitting your request. Please try again.",
         variant: "destructive",
       })
-    } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (isSubmitted) {
+    return (
+      <Card className="w-full max-w-md p-6">
+        <Alert className="border-green-500 bg-green-50 dark:bg-green-950">
+          <CheckCircle2 className="h-5 w-5 text-green-500" />
+          <AlertDescription className="ml-3 text-green-700 dark:text-green-300">
+            An agent will call you soon
+          </AlertDescription>
+        </Alert>
+      </Card>
+    )
   }
 
   return (
