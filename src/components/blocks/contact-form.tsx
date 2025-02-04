@@ -70,12 +70,11 @@ export function ContactForm() {
             id="phone" 
             name="phone"
             type="tel" 
-            placeholder="+1234567890"
-            pattern="\\+?[1-9]\\d{1,14}"
-            title="Please enter a valid phone number in international format (E.164)"
+            placeholder="+34662039902"
+            pattern="[+][0-9]{1,}"
             required 
           />
-          <p className="text-sm text-muted-foreground">Format: +[country code][number] (e.g., +34662039902)</p>
+          <p className="text-sm text-muted-foreground">Format: +[country code][number]</p>
         </div>
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "Sending..." : "Request Information"}
