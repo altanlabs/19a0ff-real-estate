@@ -1,37 +1,41 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
-import { useNavigate } from "react-router-dom"
-
+import { HeroSection } from "@/components/blocks/hero-section"
+import { PropertyFeatures } from "@/components/blocks/property-features"
+import { ContactForm } from "@/components/blocks/contact-form"
 
 export default function IndexPage() {
-  const navigate = useNavigate()
-
   return (
-    <div className="container mx-auto px-4 py-16 space-y-32">
-      {/* Hero Section */}
-      <motion.section 
-        className="text-center space-y-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Badge variant="secondary" className="mb-4">
-          Welcome to Your New App
-        </Badge>
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-          Build Beautiful Interfaces
-          <br />
-          With Altan AI
-        </h1>
-        <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-          Start chatting to edit this app.
-        </p>
-        <Button size="lg" className="mt-4" onClick={() => navigate('/')}>
-          Cool button <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      </motion.section>
+    <div className="min-h-screen">
+      <HeroSection />
+      
+      <div className="mx-auto max-w-7xl px-4 py-16">
+        <div className="mb-16 text-center">
+          <h2 className="mb-4 text-3xl font-bold">Property Features</h2>
+          <p className="text-muted-foreground">
+            Discover the amazing features of this luxury property
+          </p>
+        </div>
+        <PropertyFeatures />
+      </div>
+
+      <div className="bg-gray-50 dark:bg-gray-900">
+        <div className="mx-auto max-w-7xl px-4 py-16">
+          <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
+            <div className="max-w-xl">
+              <h2 className="mb-4 text-3xl font-bold">Interested in this property?</h2>
+              <p className="mb-6 text-muted-foreground">
+                Leave your contact information and our real estate agent will get back to you
+                within 24 hours.
+              </p>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>✓ Free consultation</li>
+                <li>✓ Virtual tour available</li>
+                <li>✓ Flexible viewing schedule</li>
+              </ul>
+            </div>
+            <ContactForm />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
